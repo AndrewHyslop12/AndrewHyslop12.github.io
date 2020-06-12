@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <link rel = 'stylesheet' type='text/css' href = 'styles/style.css'>
+        <title>Weather App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta name = "viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name = "mobile-web-app-capable" content="yes">
+        <meta name = "apple-mobile-web-app-capable" content="yes">
+        <h1> Wicked Weather</h1>
+    </head>
+    <body>
+        <form name = "myForm" class="search" style="margin:auto;max-width:300px">
+            <input type="text" id = "ui" placeholder="Search.." required>
+            <button id = "button" type="submit">🔍</button>        
+        </form>
+        
+        <div id = "box">
+            <span id = 'intro_message'>Please search using the search bar to view weather data</span>
+            <h2><span id = "city_name"></span></h2><br>
+            <span id = 'time'></span><br>
+            <span id = 'temp'></span><br>
+            <span id = 'feels_like'></span><br>
+            <span id = 'humidity'></span><br>
+            <span id = 'description'></span><br>
+            <span id = 'emoji'>🌧️</span>
+        </div>
+    </body>
+    <script src='scripts/script.js'></script>
+</html>
