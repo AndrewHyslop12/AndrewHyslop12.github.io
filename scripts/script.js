@@ -85,7 +85,7 @@ function update_UI_weather(weather_data, time_data){
     
     document.getElementById('description').innerHTML = 'Current Weather: ' + weather_description;
 
-    if (weather_description == 'light rain'){
+    if (weather_description == 'light rain' || weather_description == 'heavy intensity rain'){
         document.body.style.backgroundImage = "url('backgrounds/light-rain.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = 'cover';
