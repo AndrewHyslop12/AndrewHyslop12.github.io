@@ -83,13 +83,13 @@ function update_UI_weather(weather_data, time_data){
     document.getElementById('feels_like').innerHTML = 'Feels like: '+ weather_temperate_feels_like + '°C';
     document.getElementById('humidity').innerHTML = 'Humidity: ' + humidity;
     
-    document.getElementById('description').innerHTML = 'Current Weather: ' + weather_description;
+    document.getElementById('description').innerHTML = 'Currently: ' + weather_description;
 
-    if (weather_description == 'light rain' || weather_description == 'heavy intensity rain'){
+    if (weather_description == 'light rain'){
         document.body.style.backgroundImage = "url('backgrounds/light-rain.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = 'cover';
-        document.getElementById('emoji').innerHTML = "🌧️";
+        document.getElementById('emoji').innerHTML = "☔";
         document.getElementById('emoji').style.visibility = 'visible';
     }
 

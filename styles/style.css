@@ -10,37 +10,38 @@ h1{
 }
 #box{
     background-color: wheat;
-    height: 80%;
+    height: 76%;
     width: 90%;
     margin-top: 18%;
     margin-left: 5%;
     color: black;
     text-align: center;
     border: solid black 2px;
-    border-radius: 25px;
+    border-radius: 15px;
     margin-bottom: 10%;
 }
 #emoji{
-    font-size: 90px;
+    font-size: 7.2rem;
 }
 #city_name {
-    font-size: 35px;
+    font-size: 3rem;
+    font-weight: strong;
 }
 #temp{
     padding-top: 30px;
-    font-size: 100px;
+    font-size: 4.2rem;
 }
 #description{
-    font-size: 30px;
+    font-size: 1.5rem;
 }
 #feels_like{
-    font-size: 30px;
+    font-size: 1.5rem;
 }
 #humidity{
-    font-size: 30px;
+    font-size: 1.5rem;
 }
 #message_one{
-    font-size: 30px;
+    font-size: rem;
 }
 form.search button {
     float: left;
