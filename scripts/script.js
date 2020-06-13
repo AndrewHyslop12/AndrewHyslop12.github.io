@@ -3,23 +3,21 @@ const api_url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.o
 const api_key = '&appid=66b260c24439a050e5c9a2d2815fcb93';
 
 function get_api_data(){
+    var popup = document.getElementById("myPopup");
     let user_input = document.getElementById('ui').value;
-    if(user_input == "" || user_input == 'null'){
-        alert('Search field cannot be blank');
-    }else{
-        let http = new XMLHttpRequest();
 
-        let final_url = api_url + user_input + api_key;
-    
-        http.open("GET", final_url);
-        http.send();
-    
-        http.onload = () => {
-            if(http.status == 200){
-                extract_weather_data(http);
-            }else{
-                console.log("ERROR...");
-            }
+    let http = new XMLHttpRequest();
+
+    let final_url = api_url + user_input + api_key;
+
+    http.open("GET", final_url);
+    http.send();
+
+    http.onload = () => {
+        if(http.status == 200){
+            extract_weather_data(http);
+        }else{
+            document.getElementById('feels_like').innerHTML = "No weather data...please try again";
         }
     }
 }
@@ -60,15 +58,11 @@ function update_UI_weather(weather_data){
 
     let weather_temperature_details = weather_data.main;
     let weather_description_all = weather_data.weather[0];
-
     let weather_temperate = Math.round(weather_temperature_details.temp - 273.15);
     let weather_temperate_feels_like = Math.round(weather_temperature_details.feels_like - 273.15);
     let humidity = weather_temperature_details.humidity;
-
     let weather_description = weather_description_all.description;
-
     let city_name = weather_data.name;
-
     let coords = weather_data.coord;
     let lat = coords.lat;
     let lon = coords.lon;
@@ -83,8 +77,21 @@ function update_UI_weather(weather_data){
     
     document.getElementById('description').innerHTML = 'Currently: ' + weather_description;
     document.getElementById('description').style.fontWeight = '900';
-    
-    if (weather_description == 'light rain' || weather_description == 'light intensity drizzle rain'){
+
+    make_emoji_descision(weather_description);
+}
+
+function update_UI_time(data){
+    let time = data.formatted;
+    document.getElementById('time').innerHTML = 'Current time: ' + time.slice(11, 16);
+}
+
+function hide_emoji(){
+    document.getElementById('emoji').style.visibility = 'hidden';
+}
+
+function make_emoji_descision(weather_description){
+    if (weather_description.includes('rain')){
         document.body.style.backgroundImage = "url('backgrounds/light-rain.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = 'cover';
@@ -100,7 +107,7 @@ function update_UI_weather(weather_data){
         document.getElementById('emoji').style.visibility = 'visible';
     }
 
-    if(weather_description == 'overcast clouds' || weather_description == 'broken clouds' || weather_description == 'scattered clouds' || weather_description == 'few clouds'){
+    if(weather_description.includes('clouds')){
         document.body.style.backgroundImage = "url('backgrounds/clouds.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = 'cover';
@@ -124,17 +131,7 @@ function update_UI_weather(weather_data){
     }
 }
 
-function update_UI_time(data){
-    let time = data.formatted;
-    document.getElementById('time').innerHTML = 'Current time: ' + time.slice(11, 16);
-}
-
-function hide_emoji(){
-    document.getElementById('emoji').style.visibility = 'hidden';
-}
 document.addEventListener("load", hide_emoji());
-
-
 button.addEventListener("click", function(event){
     get_api_data();
     event.preventDefault();
