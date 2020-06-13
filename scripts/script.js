@@ -3,9 +3,7 @@ const api_url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.o
 const api_key = '&appid=66b260c24439a050e5c9a2d2815fcb93';
 
 function get_api_data(){
-    
     let user_input = document.getElementById('ui').value;
-
     if(user_input == "" || user_input == 'null'){
         alert('Search field cannot be blank');
     }else{
@@ -20,7 +18,7 @@ function get_api_data(){
             if(http.status == 200){
                 extract_weather_data(http);
             }else{
-                console.log("Error...");
+                console.log("ERROR...");
             }
         }
     }
@@ -42,7 +40,7 @@ function get_api_time_data(lat, lon){
         if(http.status == 200){
             extract_time_data(http);
         }else{
-            console.log("Error...");
+            console.log("ERROR...");
         }
     }
 }
@@ -54,10 +52,10 @@ function extract_weather_data(http){
 
 function extract_time_data(http){
     let time_data = JSON.parse(http.response);
-    update_UI_time(time_data)
+    update_UI_time(time_data);
 }
 
-function update_UI_weather(weather_data, time_data){
+function update_UI_weather(weather_data){
     document.getElementById('intro_message').style.visibility = 'hidden';
 
     let weather_temperature_details = weather_data.main;
@@ -84,8 +82,9 @@ function update_UI_weather(weather_data, time_data){
     document.getElementById('humidity').innerHTML = 'Humidity: ' + humidity;
     
     document.getElementById('description').innerHTML = 'Currently: ' + weather_description;
-
-    if (weather_description == 'light rain'){
+    document.getElementById('description').style.fontWeight = '900';
+    
+    if (weather_description == 'light rain' || weather_description == 'light intensity drizzle rain'){
         document.body.style.backgroundImage = "url('backgrounds/light-rain.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundSize = 'cover';
@@ -127,15 +126,16 @@ function update_UI_weather(weather_data, time_data){
 
 function update_UI_time(data){
     let time = data.formatted;
-
     document.getElementById('time').innerHTML = 'Current time: ' + time.slice(11, 16);
 }
+
 function hide_emoji(){
     document.getElementById('emoji').style.visibility = 'hidden';
 }
 document.addEventListener("load", hide_emoji());
 
+
 button.addEventListener("click", function(event){
-    get_api_data(); 
+    get_api_data();
     event.preventDefault();
 })
