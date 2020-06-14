@@ -17,7 +17,7 @@ function get_api_data(){
         if(http.status == 200){
             extract_weather_data(http);
         }else{
-            document.getElementById('feels_like').innerHTML = "No weather data...please try again";
+            error_message();
         }
     }
 }
@@ -69,12 +69,19 @@ function update_UI_weather(weather_data){
 
     get_api_time_data(lat, lon);
 
+    document.getElementById('city_name').style.visibility = 'visible';
     document.getElementById('city_name').innerHTML = city_name;
 
+    document.getElementById('temp').style.visibility = 'visible';
     document.getElementById('temp').innerHTML = weather_temperate + '°C';
+    
+    document.getElementById('feels_like').style.visibility = 'visible';
     document.getElementById('feels_like').innerHTML = 'Feels like: '+ weather_temperate_feels_like + '°C';
+    
+    document.getElementById('humidity').style.visibility = 'visible';
     document.getElementById('humidity').innerHTML = 'Humidity: ' + humidity;
     
+    document.getElementById('description').style.visibility = 'visible';
     document.getElementById('description').innerHTML = 'Currently: ' + weather_description;
     document.getElementById('description').style.fontWeight = '900';
 
@@ -83,6 +90,7 @@ function update_UI_weather(weather_data){
 
 function update_UI_time(data){
     let time = data.formatted;
+    document.getElementById('time').style.visibility = 'visible';
     document.getElementById('time').innerHTML = 'Current time: ' + time.slice(11, 16);
 }
 
@@ -129,6 +137,16 @@ function make_emoji_descision(weather_description){
         document.getElementById('emoji').innerHTML = "☀️";
         document.getElementById('emoji').style.visibility = 'visible'
     }
+}
+function error_message(){
+    document.getElementById('city_name').style.visibility = 'hidden';
+    document.getElementById('feels_like').innerHTML = "No data...please try again";
+    document.getElementById('time').style.visibility = 'hidden';
+    document.getElementById('temp').style.visibility = 'hidden';
+    document.getElementById('time').style.visibility = 'hidden';
+    document.getElementById('humidity').style.visibility = 'hidden';
+    document.getElementById('description').style.visibility = 'hidden';
+    document.getElementById('emoji').style.visibility = 'hidden';
 }
 
 document.addEventListener("load", hide_emoji());
