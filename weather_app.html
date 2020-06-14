@@ -4,6 +4,7 @@
         <link rel="icon" sizes="300x300" href="weather_app.png">
         <link rel="apple-touch-icon" sizes = "300x300" href = "weather_app.png">
         <link rel="shortcut icon" sizes = "300x300" href="weather_app.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
         <title>Weather App</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -20,7 +21,7 @@
         </form>
         <div id = "box">
             <div id = "text">
-                <span id = 'intro_message'>Please search using the search bar to view weather data</span>
+                <button style= 'margin-top: 10px;' id = 'location' type="button" class="btn btn-primary">Use current location</button><br>                
                 <h2><span id = "city_name"></span></h2>
                 <span id = 'time'></span><br>
                 <span id = 'temp'></span><br>

@@ -1,4 +1,5 @@
 const button = document.getElementById('button');
+const location_button = document.getElementById('location');
 const api_url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=";
 const api_key = '&appid=66b260c24439a050e5c9a2d2815fcb93';
 
@@ -43,6 +44,33 @@ function get_api_time_data(lat, lon){
     }
 }
 
+function get_location(){
+    location_button.style.visibility = 'hidden';
+    
+    current_loc = navigator.geolocation.getCurrentPosition(get_api_data_current_location);
+
+}
+function get_api_data_current_location(position){
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+
+    let url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + "66b260c24439a050e5c9a2d2815fcb93";
+
+
+    let http = new XMLHttpRequest();
+
+    http.open("GET", url);
+
+    http.send();
+
+    http.onload = () => {
+        if(http.status == 200){
+            extract_weather_data(http);
+        }else{
+            error_message();
+        }
+    }
+}
 function extract_weather_data(http){
     let weather_data = JSON.parse(http.response);
     update_UI_weather(weather_data);
@@ -54,7 +82,8 @@ function extract_time_data(http){
 }
 
 function update_UI_weather(weather_data){
-    document.getElementById('intro_message').style.visibility = 'hidden';
+
+    location_button.style.visibility = 'hidden';
 
     let weather_temperature_details = weather_data.main;
     let weather_description_all = weather_data.weather[0];
@@ -152,5 +181,10 @@ function error_message(){
 document.addEventListener("load", hide_emoji());
 button.addEventListener("click", function(event){
     get_api_data();
+    event.preventDefault();
+})
+
+location_button.addEventListener("click", function(event){
+    get_location();
     event.preventDefault();
 })
