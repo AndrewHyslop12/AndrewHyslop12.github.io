@@ -12,12 +12,14 @@ h1{
     background-color: wheat;
     height: 76%;
     width: 90%;
-    margin-top: 18%;
+    margin-top: 60px;
+    margin-bottom: 2%;
     margin-left: 5%;
     color: black;
     text-align: center;
     border: solid cadetblue 2px;
     border-radius: 15px;
+    padding-bottom: 10%;
 }
 #text{
     margin-bottom: 10px;

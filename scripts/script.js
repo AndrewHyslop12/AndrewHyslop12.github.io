@@ -4,7 +4,6 @@ const api_url = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.o
 const api_key = '&appid=66b260c24439a050e5c9a2d2815fcb93';
 
 function get_api_data(){
-    var popup = document.getElementById("myPopup");
     let user_input = document.getElementById('ui').value;
 
     let http = new XMLHttpRequest();
@@ -82,7 +81,8 @@ function extract_time_data(http){
 }
 
 function update_UI_weather(weather_data){
-
+    
+    document.getElementById('ui').value = '';
     location_button.style.visibility = 'hidden';
 
     let weather_temperature_details = weather_data.main;
@@ -129,53 +129,55 @@ function hide_emoji(){
 
 function make_emoji_descision(weather_description){
     if (weather_description.includes('rain')){
-        document.body.style.backgroundImage = "url('backgrounds/light-rain.jpg')";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = 'cover';
+        file_name = 'backgrounds/light-rain.jpg';
+        get_file(file_name);
         document.getElementById('emoji').innerHTML = "☔";
         document.getElementById('emoji').style.visibility = 'visible';
-    }
-
-    if(weather_description == 'haze'){
-        document.body.style.backgroundImage = "url('backgrounds/haze.jpeg')";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = 'cover';
+    }else if(weather_description == 'haze'){
+        file_name = 'backgrounds/haze.jpeg';
+        get_file(file_name);
         document.getElementById('emoji').innerHTML = "🌫️";
         document.getElementById('emoji').style.visibility = 'visible';
-    }
-
-    if(weather_description.includes('clouds')){
-        document.body.style.backgroundImage = "url('backgrounds/clouds.jpg')";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = 'cover';
+    }else if(weather_description.includes('clouds')){
+        file_name = 'backgrounds/clouds.jpg';
+        get_file(file_name);
         document.getElementById('emoji').innerHTML = "☁️";
         document.getElementById('emoji').style.visibility = 'visible';
-    }
-
-    if(weather_description == 'thunderstorm'){
-        document.body.style.backgroundImage = "url('backgrounds/thunder.jpg')";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = 'cover';
+    }else if(weather_description == 'thunderstorm'){
+        file_name = 'backgrounds/thunder.jpg';
+        get_file(file_name);
         document.getElementById('emoji').innerHTML = "⛈️";
         document.getElementById('emoji').style.visibility = 'visible';
-    }
-    if(weather_description == 'clear sky'){
-        document.body.style.backgroundImage = "url('backgrounds/sunny.jpg')";
-        document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundSize = 'cover';
+    }else{
+        file_name = 'backgrounds/sunny.jpg';
+        get_file(file_name);
         document.getElementById('emoji').innerHTML = "☀️";
         document.getElementById('emoji').style.visibility = 'visible'
     }
 }
+
 function error_message(){
-    document.getElementById('city_name').style.visibility = 'hidden';
+    array_of_fields = [
+        'city_name',
+        'time',
+        'temp',
+        'humidity',
+        'description',
+        'emoji'
+    ]
     document.getElementById('feels_like').innerHTML = "No data...please try again";
-    document.getElementById('time').style.visibility = 'hidden';
-    document.getElementById('temp').style.visibility = 'hidden';
-    document.getElementById('time').style.visibility = 'hidden';
-    document.getElementById('humidity').style.visibility = 'hidden';
-    document.getElementById('description').style.visibility = 'hidden';
-    document.getElementById('emoji').style.visibility = 'hidden';
+
+    array_of_fields.forEach(hide_fields);
+}
+
+function hide_fields(item){
+    document.getElementById(item).style.visibility = 'hidden';
+}
+
+function get_file(file_name){
+    document.body.style.backgroundImage = "url(" + file_name + ")";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundSize = 'cover';
 }
 
 document.addEventListener("load", hide_emoji());
